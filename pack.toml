@@ -1,0 +1,7 @@
+[pack]
+name = "my-gastown"
+schema = 2
+
+[imports.gastown]
+source = "./assets/gastown"
+
