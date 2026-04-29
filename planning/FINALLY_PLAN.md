@@ -12,9 +12,9 @@ All `gc sling` commands are run from the gastown city root.
 
 | Step | Description | Status |
 |------|-------------|--------|
-| 1 | Repo scaffold | ⬜ todo |
-| 2 | Backend foundation | ⬜ todo |
-| 3 | Market data — simulator + SSE | ⬜ todo |
+| 1 | Repo scaffold | ✅ done |
+| 2 | Backend foundation | ✅ done |
+| 3 | Market data — simulator + SSE | ✅ done |
 | 4 | Portfolio API | ⬜ todo |
 | 5 | Watchlist API | ⬜ todo |
 | 6 | LLM chat integration | ⬜ todo |
