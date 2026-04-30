@@ -16,9 +16,9 @@ All `gc sling` commands are run from the gastown city root.
 | 2 | Backend foundation | ✅ done |
 | 3 | Market data — simulator + SSE | ✅ done |
 | 4 | Portfolio API | ⬜ todo |
-| 5 | Watchlist API | ⬜ todo |
-| 6 | LLM chat integration | ⬜ todo |
-| 7 | Frontend scaffold | ⬜ todo |
+| 5 | Watchlist API | ✅ done |
+| 6 | LLM chat integration | ✅ done |
+| 7 | Frontend scaffold | ✅ done |
 | 8 | Frontend: watchlist panel + SSE | ⬜ todo |
 | 9 | Frontend: charts | ⬜ todo |
 | 10 | Frontend: portfolio views | ⬜ todo |
@@ -30,6 +30,7 @@ All `gc sling` commands are run from the gastown city root.
 | 16 | Frontend unit tests | ⬜ todo |
 | 17 | E2E Playwright tests | ⬜ todo |
 | 18 | Full integration smoke test | ⬜ todo |
+| 19 | Move rig from portfolio/ to finally/ | ⬜ todo |
 
 ---
 
@@ -599,6 +600,37 @@ Done when: all 11 smoke test steps pass, data persists across container restart.
 
 ---
 
+## Step 19 — Move rig from portfolio/ to finally/
+
+Re-register the rig so its root matches the app git repo.
+
+```bash
+gc rig remove portfolio
+gc rig add ~/projects/portfolio/finally --name portfolio
+```
+
+Then update `city.toml` to reflect the new rig path (if `gc rig add` doesn't auto-update it):
+
+```toml
+[[rigs]]
+name = "portfolio"
+
+[rigs.imports.gastown]
+source = "./assets/gastown"
+```
+
+Restart the city to pick up the new rig root:
+
+```bash
+gc stop && gc start
+gc status   # portfolio/gastown.witness should come back up
+gc doctor   # all green
+```
+
+Done when: `gc status` shows `portfolio/gastown.witness` running with rig root at `~/projects/portfolio/finally/`.
+
+---
+
 ## Notes
 
 - Steps 2–6 (backend) can be dispatched sequentially; each depends on the previous.
@@ -608,3 +640,4 @@ Done when: all 11 smoke test steps pass, data persists across container restart.
 - Steps 15–16 (unit tests) can run in parallel with Steps 13–14.
 - Step 17 (E2E) depends on Step 13.
 - Step 18 depends on all prior steps.
+- Step 19 can be done any time after Step 18 — it's a city config change, not app code.
