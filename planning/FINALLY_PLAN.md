@@ -15,11 +15,11 @@ All `gc sling` commands are run from the gastown city root.
 | 1 | Repo scaffold | ✅ done |
 | 2 | Backend foundation | ✅ done |
 | 3 | Market data — simulator + SSE | ✅ done |
-| 4 | Portfolio API | ⬜ todo |
+| 4 | Portfolio API | ✅ done |
 | 5 | Watchlist API | ✅ done |
 | 6 | LLM chat integration | ✅ done |
 | 7 | Frontend scaffold | ✅ done |
-| 8 | Frontend: watchlist panel + SSE | ⬜ todo |
+| 8 | Frontend: watchlist panel + SSE | ✅ done |
 | 9 | Frontend: charts | ⬜ todo |
 | 10 | Frontend: portfolio views | ⬜ todo |
 | 11 | Frontend: trade bar | ⬜ todo |
