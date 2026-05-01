@@ -30,7 +30,7 @@ All `gc sling` commands are run from the gastown city root.
 | 16 | Frontend unit tests | ⬜ todo |
 | 17 | E2E Playwright tests | ⬜ todo |
 | 18 | Full integration smoke test | ⬜ todo |
-| 19 | Move rig from portfolio/ to finally/ | ⬜ todo |
+| 19 | Move rig from portfolio/ to finally/ | ✅ done |
 
 ---
 
