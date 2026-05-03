@@ -5,9 +5,6 @@ global_fragments = ["command-glossary", "operational-awareness"]
 [[rigs]]
 name = "portfolio"
 
-[rigs.imports.gastown]
-source = "./assets/gastown"
-
 [daemon]
 formula_v2 = true
 patrol_interval = "30s"
