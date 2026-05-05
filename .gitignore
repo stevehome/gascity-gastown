@@ -11,3 +11,7 @@
 
 # Logs
 *.log
+
+# Claude local settings
+.claude/settings.local.json
+.claude/skills/
