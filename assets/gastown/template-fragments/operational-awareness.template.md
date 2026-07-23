@@ -19,20 +19,28 @@ If you detect Dolt trouble (commands hang/timeout, "connection refused",
 "database not found", query latency > 5s, unexpected empty results):
 
 **BEFORE restarting Dolt, collect diagnostics.** Dolt hangs are hard to
-reproduce. A blind restart destroys the evidence. Always:
+reproduce. A blind restart destroys the evidence.
+
+**Never send `kill -QUIT` (or any other signal) to the Dolt server.**
+It looks like a safe, non-destructive goroutine dump, but this Dolt
+build has no custom handler for it: Go's default SIGQUIT behavior
+dumps the stack *and terminates the process*. It has crashed the
+server this way at least 6 times (see GT-i2ucl6). Worse, if several
+agents each notice the same slow period and independently reach for
+this step, they cascade into repeated crash-restarts that look like —
+and get mistaken for — the original problem. Collect diagnostics
+without touching the process instead:
 
 ```bash
-# 1. Capture goroutine dump (safe — does not kill the process)
-kill -QUIT $(cat {{ .CityRoot }}/.gc/runtime/packs/dolt/dolt.pid)
-
-# 2. Capture server status while it's still (mis)behaving
+# 1. Capture server status and recent log activity — no signal sent
 gc dolt status 2>&1 | tee /tmp/dolt-hang-$(date +%s).log
+tail -100 {{ .CityRoot }}/.gc/runtime/packs/dolt/dolt.log
 
-# 3. THEN escalate with the evidence
+# 2. THEN escalate with the evidence
 gc mail send mayor -s "Dolt: <describe symptom>" -m "<paste evidence>"
 ```
 
-**Do NOT just `gc dolt stop && gc dolt start` without steps 1-2.**
+**Do NOT just `gc dolt stop && gc dolt start` without step 1.**
 
 Orphan databases (testdb_*, beads_t*, beads_pt*) accumulate on the production
 server and degrade performance. Use `gc dolt cleanup` to remove them safely.
